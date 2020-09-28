@@ -120,6 +120,7 @@ Writing superblocks and filesystem accounting information: done
 ```
 
 On crée deux dossier pour pouvoir monter nos partitions:
+(J'ai appelé mon dossier mnt au lieu de srv !!!!)
 
 ```
 [svoisin@localhost ~]$ sudo mkdir /mnt/site1
@@ -515,7 +516,7 @@ On doit maintenant le lier à notre serveur discord:
 
 Pour cela on modifie:
 ```/etc/netdata/edit-config-health_alarm_notify.conf```
-
+```
 on complète la ligne discord:
 ```
 DISCORD_WEBHOOK_URL=""
@@ -524,6 +525,7 @@ On y met le lien discord.
 
 On ajoute dans le fichier conf de nginx:
 ```
+
  location ~ /netdata/(?<ndpath>.*) {
             proxy_redirect off;
             proxy_set_header Host $host;
