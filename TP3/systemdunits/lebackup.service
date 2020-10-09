@@ -1,0 +1,15 @@
+[Unit]
+Description=Le service de backup (tp3)
+
+[Service]
+Type=simple
+User=backup
+RemainAfterExit=yes
+PIDFILE=/var/run/backup.pid
+ExecStartPre=sudo /home/vagrant/prerequisbackup.sh
+ExecStart=sudo /home/vagrant/lebackup.sh
+ExecStartPost=sudo /home/vagrant/stopperbackup.sh
+ExecReload=/bin/kill -HUP $MAINPID
+
+[Install]
+WantedBy=multi-user.target
