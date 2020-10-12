@@ -242,8 +242,11 @@ Dans lebackup.sh :
 ```
 #!/bin/bash
 
-sudo firewall-cmd --add-port=7777/tcp --permanent
-sudo firewall-cmd --reload
+backup_name="/srv/site1"
+name=site1
+destination="/sauvegarde/site1"
+tar -czf ${name}$(date '+%Y%m%d_%H%M').tar.gz --absolute-names ${backup_name}/index.html
+mv ${name}$(date '+%Y%m%d_%H%M').tar.gz ${destination}
 ```
 
 Dans stopperbackup.sh :
