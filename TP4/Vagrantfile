@@ -1,0 +1,45 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "vag-tp4-node1"
+
+  # accelere le demarrage de la vm
+  config.vbguest.auto_update = false
+
+  # Enleve les auto updates
+  config.vm.box_check_update = false
+
+  # Désactive le montage d'un dossier partagé selon la vm
+  config.vm.synced_folder ".", "/vagrant", disabled: true
+
+
+  config.vm.define "gitea.node1" do |gitea|
+    gitea.vm.hostname = "gitea.node1"
+    gitea.vm.network "private_network", ip: "192.168.1.41"
+    gitea.vm.provision :shell, path: "./scripts/debut.sh"
+    gitea.vm.provision :shell, path: "./scripts/gitea.sh"
+  end
+  
+
+  config.vm.define "mariadb.node2" do |db|
+    db.vm.hostname = "mariadb.node2"
+    db.vm.network "private_network", ip: "192.168.1.42"
+    db.vm.provision :shell, path: "./scripts/debut.sh"
+    db.vm.provision :shell, path: "./scripts/mariadb.sh"
+  end
+  
+
+  config.vm.define "nginx.node3" do |nginx|
+    nginx.vm.hostname = "nginx.node3"
+    nginx.vm.network "private_network", ip: "192.168.1.43"
+    nginx.vm.provision :shell, path: "./scripts/debut.sh"
+    nginx.vm.provision :shell, path: "./scripts/nginx.sh"
+  end
+
+
+  config.vm.define "nfs.node4" do |nfs|
+    nfs.vm.hostname = "nfs.node4"
+    nfs.vm.network "private_network", ip: "192.168.1.44"
+    nfs.vm.provision :shell, path: "./scripts/debut.sh"
+    nfs.vm.provision :shell, path: "./scripts/nfs.sh"
+  end
+
+end
